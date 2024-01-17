@@ -1,6 +1,7 @@
 use std::error::Error;
 
 mod do_nothing_parser;
+mod parse_coordinate;
 mod parse_input;
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -11,6 +12,18 @@ fn main() -> Result<(), Box<dyn Error>> {
     let (leftover_input, output) = parse_input::parse_input("test two")?;
     assert_eq!(leftover_input, " two");
     assert_eq!(output, "test");
+
+    let (_, parsed) = parse_coordinate::parse_coordinate("(3, 5)")?;
+    assert_eq!(parsed, parse_coordinate::Coordinate { x: 3, y: 5 });
+    let (_, parsed) = parse_coordinate::parse_coordinate("(2, -4)")?;
+    assert_eq!(parsed, parse_coordinate::Coordinate { x: 2, y: -4 });
+    // 用nom，可以方便规范地处理解析失败的情况
+    let parsing_error = parse_coordinate::parse_coordinate("(3,)");
+    assert!(parsing_error.is_err());
+    let parsing_error = parse_coordinate::parse_coordinate("(,3)");
+    assert!(parsing_error.is_err());
+    let parsing_error = parse_coordinate::parse_coordinate("Ferris");
+    assert!(parsing_error.is_err());
 
     Ok(())
 }
