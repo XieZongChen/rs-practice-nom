@@ -3,6 +3,7 @@ use std::error::Error;
 mod do_nothing_parser;
 mod parse_coordinate;
 mod parse_input;
+mod parse_hex_color;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let (remaining_input, output) = do_nothing_parser::do_nothing_parser("test one")?;
@@ -24,6 +25,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     assert!(parsing_error.is_err());
     let parsing_error = parse_coordinate::parse_coordinate("Ferris");
     assert!(parsing_error.is_err());
+
+    let (_, color) = parse_hex_color::parse_hex_color("#2F14DF")?;
+    assert_eq!(color, parse_hex_color::Color { red: 47, green: 20, blue: 223, });
 
     Ok(())
 }
