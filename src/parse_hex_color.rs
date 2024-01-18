@@ -50,3 +50,18 @@ pub fn parse_hex_color(input: &str) -> IResult<&str, Color> {
     let (input, (red, green, blue)) = (hex_primary, hex_primary, hex_primary).parse(input)?;
     Ok((input, Color { red, green, blue }))
 }
+
+#[test]
+fn test_parse_hex_color() {
+    assert_eq!(
+        parse_hex_color("#2F14DF"),
+        Ok((
+            "",
+            Color {
+                red: 47,
+                green: 20,
+                blue: 223,
+            }
+        ))
+    );
+}
