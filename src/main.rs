@@ -29,7 +29,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     let (_, color) = parse_hex_color::parse_hex_color("#2F14DF")?;
     assert_eq!(color, parse_hex_color::Color { red: 47, green: 20, blue: 223, });
 
-
     Ok(())
 }
 
