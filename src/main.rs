@@ -30,7 +30,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     assert_eq!(color, parse_hex_color::Color { red: 47, green: 20, blue: 223, });
 
 
-
     Ok(())
 }
 
